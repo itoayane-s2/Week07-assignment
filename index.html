@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODOlist</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+    <div class="flex flex-col bg-white rounded-lg shadow p-8 w-full max-w-md">
+        <h1 class="font-bold mb-6 text-2xl">TODOリスト</h1>
+        <div class="flex gap-2 mb-6">
+            <input id="todoInput" type="text" placeholder="タスクを入力..." class="flex-1 border border-gray-300 rounded-xl px-3 py-2">
+            <button id="addBtn" class="bg-blue-600 rounded-xl shadow text-white font-bold px-4 py-2 hover:bg-blue-800 transition">追加</button>
+        </div>
+        <ul id="todoList"  class="space-y-2"></ul>
+    </div>
+    <script>
+        const addButton = document.querySelector("#addBtn");
+        const todoInput = document.querySelector("#todoInput");
+        const todoList = document.querySelector("#todoList");
+
+        addButton.addEventListener("click",() => {
+            const text = todoInput.value;
+
+            if (text === ""){
+                return;
+            }
+
+            //list要素
+            const item = document.createElement("li");
+            item.className = "flex items-center justify-between bg-gray-50 rounded-xl px-3 py-2"
+
+            //タスクのtext部分
+            const text_box = document.createElement("span");
+            text_box.textContent = text;
+
+            //完了ボタン
+            const doneBtn = document.createElement("button");
+            doneBtn.textContent = "完了";
+            doneBtn.className = "text-sm text-gray-500 hover:text-red-500";
+
+            doneBtn.addEventListener("click", () => {
+                text_box.classList.toggle("line-through");
+                text_box.classList.toggle("text-gray-400");
+            });
+
+            item.appendChild(text_box);
+            item.appendChild(doneBtn);
+            todoList.appendChild(item);
+
+            //タスクを入力して追加ボタンを押した後、入力欄に文字が残らないようにするために
+            todoInput.value = "";
+
+        })
+    </script>
+
+    
+</body>
+</html>
